@@ -1,0 +1,46 @@
+<section class="hero">
+    <div class="container text-center text-white py-5">
+      <h1 class="display-4 fw-bold">Mercatify</h1>
+      <p class="lead">API modular para construir tu propio eCommerce con facilidad.</p>
+      <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+        <a routerLink="/signup-client" (click)="onClientClick()" class="btn btn-lg btn-primary">Vincularse como Cliente</a>
+        <a routerLink="/signup-vendor" (click)="onVendorClick()" class="btn btn-lg btn-outline-light">Vincularse como Vendedor</a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="features container py-5 text-center">
+    <h2 class="mb-4">¿Qué ofrece Mercatify?</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h5>🧱 Arquitectura Modular</h5>
+        <p>Desarrollado con NestJS, ideal para escalar sin dolores de cabeza.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>💳 Pagos con Mercado Pago</h5>
+        <p>Listo para que tus clientes paguen de forma segura y rápida.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>⚙️ Despliegue Automático</h5>
+        <p>CI/CD con GitHub Actions y Docker para actualizaciones fluidas.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="tech bg-light py-5 text-center">
+    <h3 class="mb-4">Stack Tecnológico</h3>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <span class="badge bg-secondary">Node.js</span>
+      <span class="badge bg-secondary">NestJS</span>
+      <span class="badge bg-secondary">TypeScript</span>
+      <span class="badge bg-secondary">Redis</span>
+      <span class="badge bg-secondary">Mercado Pago</span>
+      <span class="badge bg-secondary">Jest</span>
+      <span class="badge bg-secondary">Docker</span>
+      <span class="badge bg-secondary">GitHub Actions</span>
+    </div>
+  </section>
+  
+  <footer class="text-center py-4 bg-white border-top mt-5">
+    <small>© 2025 Mercatify. Todos los derechos reservados.</small>
+  </footer>
