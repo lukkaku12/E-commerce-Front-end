@@ -1,1 +1,31 @@
-<p>sign-up-customer works!</p>
+<div class="auth-container">
+    <div class="auth-card">
+      <h2 class="mb-4 text-center">Registrarse como Cliente</h2>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input formControlName="name" type="text" class="form-control" id="name" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo</label>
+          <input formControlName="email" type="email" class="form-control" id="email" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input formControlName="password" type="password" class="form-control" id="password" />
+        </div>
+  
+        <button type="submit" class="btn btn-primary w-100">Crear Cuenta</button>
+      </form>
+  
+      <div class="text-center mt-3">
+        <span>¿Ya tienes cuenta? </span>
+        <a routerLink="/user/sign-in-client">Inicia sesión</a>
+      </div>
+      <div class="text-center mt-3">
+        <a routerLink="/" class="text-decoration-none" style="color: #007bff; cursor: pointer;">Volver atrás</a>
+      </div>
+    </div>
+  </div>
