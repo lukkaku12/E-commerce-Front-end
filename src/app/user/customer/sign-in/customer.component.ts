@@ -22,7 +22,7 @@ export class CustomerComponent {
 
   onSubmit() {
     if (this.signInForm.valid) {
-      this.userService.createUser(this.signInForm.value).subscribe({
+      this.userService.loginUser(this.signInForm.value).subscribe({
               next: (res: Response) => {
                 console.log('Usuario creado:', res);
                 
@@ -32,9 +32,9 @@ export class CustomerComponent {
         
                 
                 if (res.user.role === 'buyer') {
-                  this.router.navigate(['/client/dashboard']);
+                  this.router.navigate(['/dashboard/customer']);
                 } else if (res.user.role === 'vendor') {
-                  this.router.navigate(['/vendor/dashboard']);
+                  this.router.navigate(['/dashboard/vendor']);
                 }
               },
               error: (err) => console.error('Error al crear usuario:', err)

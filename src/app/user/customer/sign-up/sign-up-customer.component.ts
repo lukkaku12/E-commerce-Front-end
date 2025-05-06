@@ -34,9 +34,9 @@ export class SignUpCustomerComponent {
         
                 
                 if (res.user.role === 'buyer') {
-                  this.router.navigate(['/client/dashboard']);
+                  this.router.navigate(['/dashboard/customer']);
                 } else if (res.user.role === 'vendor') {
-                  this.router.navigate(['/vendor/dashboard']);
+                  this.router.navigate(['/dashboard/vendor']);
                 }
               },
               error: (err) => console.error('Error al crear usuario:', err)

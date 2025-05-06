@@ -17,7 +17,7 @@ export class UserService {
   }
 
   loginUser(userData: any) {
-    return this.http.post(`${this.baseUrl}/auth/login`, userData);
+    return this.http.post<Response>(`${this.baseUrl}/auth/login`, userData);
   }
 
 }
