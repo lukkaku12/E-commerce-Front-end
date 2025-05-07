@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../../user.service';
+import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
 import { Response } from '../../interfaces/login-response.interface';
 
