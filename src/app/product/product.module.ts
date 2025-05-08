@@ -5,6 +5,7 @@ import { ViewProductComponent } from './customer/view-product/view-product.compo
 import { EditProductComponent } from './vendor/edit-product/edit-product.component';
 import { ProductRoutingModule } from './product-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ViewProductVendorComponent } from './vendor/view-product/view-product.component';
 
 
 
@@ -12,7 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     CreateProductComponent,
     ViewProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ViewProductVendorComponent,
   ],
   imports: [
     CommonModule,
