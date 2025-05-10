@@ -28,12 +28,10 @@
         <!-- Columna de detalles -->
         <div class="col-md-6 d-flex flex-column justify-content-around align-items-end text-end" style="min-height: 100%;">
           <div class="d-flex flex-column gap-3 w-100">
-            <h2 class="mb-0 fw-bold" style="font-family: 'Roboto Condensed', sans-serif;">{{ product.name }}</h2>
-            <p class="mb-1" style="color: #6c757d;">{{ product.description }}</p>
-            <p class="h5 mb-1 fw-200"> {{ product.price | currency:'USD' }}</p>
-            <p class="mb-1"><strong>Stock:</strong> {{ product.stock }}</p>
-            <p class="mb-1"><strong>Categoría:</strong> {{ product.category }}</p>
-            <p class="mb-1"><strong>Fecha de creación:</strong> {{ product.createdAt | date:'medium' }}</p>
+            <h2 class="mb-0 fw-bold" style="font-family: 'Roboto Condensed', sans-serif;">{{ product.base_model }}</h2>
+            <p class="mb-1" style="color: #6c757d;">{{ product.brand }}</p>
+            <p class="h5 mb-1 fw-200"> {{ product.product_variants[0].price | currency:'USD' }}</p>
+            <p class="mb-1"><strong>vendedor:</strong> {{ product.seller.name }}</p>
           </div>
           <div class="mb-1 d-flex gap-3">
             <button class="btn btn-warning me-2" (click)="goToEdit()">Editar producto</button>

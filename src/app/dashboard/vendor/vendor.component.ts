@@ -32,11 +32,11 @@ export class VendorComponent {
   }
 
   createProduct() {
-    this.router.navigate(['/vendor/crear-producto']);
+    this.router.navigate(['/product/vendor/create-product']);
   }
 
   createService() {
-    this.router.navigate(['/vendor/crear-servicio']);
+    this.router.navigate(['product/vendor/create-service']);
   }
 
   addAvailability() {

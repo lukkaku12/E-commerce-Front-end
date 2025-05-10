@@ -35,21 +35,29 @@
   </div>
   <!-- Product Section -->
   <h4>Productos</h4>
-  <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-    <div class="col" *ngFor="let product of filteredProducts()">
-      <div class="card h-100 border-success" (click)="goToProduct(product.id)">
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">{{ product.description }}</p>
-          <button class="btn btn-success w-100">Agregar al carrito</button>
+  <ng-container *ngIf="products.length > 0; else sinProductos">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+      <div class="col" *ngFor="let product of filteredProducts()">
+        <div class="card h-100 border-success" (click)="goToProduct(product.product_id)">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.gtin }}</h5>
+            <p class="card-text">{{ product.mpn }}</p>
+            <p class="mb-1"><strong>Marca:</strong> {{ product.brand }}</p>
+            <p class="mb-3"><strong>Modelo base:</strong> {{ product.base_model }}</p>
+            <button class="btn btn-success w-100">Agregar al carrito</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+  <ng-template #sinProductos>
+    <p>No hay productos disponibles.</p>
+  </ng-template>
 
   <!-- Service Section -->
   <h4>Servicios</h4>
   <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngIf="services.length > 0; else sinServicios">
     <div class="col" *ngFor="let service of filteredServices()">
       <div class="card h-100 border-primary">
         <div class="card-body">
@@ -61,3 +69,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #sinServicios>
+  <p>No hay servicios disponibles.</p>
+</ng-template>

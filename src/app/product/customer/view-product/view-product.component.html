@@ -82,19 +82,10 @@
           style="min-height: 100%"
         >
           <div class="d-flex flex-column gap-3 w-100">
-            <h2
-              class="mb-0 fw-bold"
-              style="font-family: 'Roboto Condensed', sans-serif"
-            >
-              {{ product.name }}
-            </h2>
-            <p class="mb-1" style="color: #6c757d">{{ product.description }}</p>
-            <p class="h5 mb-1 fw-200">{{ product.price | currency : "USD" }}</p>
-            <p class="mb-1"><strong>Stock:</strong> {{ product.stock }}</p>
-            <p class="mb-1">
-              <strong>Categoría:</strong> {{ product.category }}
-            </p>
-            
+            <h2 class="mb-0 fw-bold" style="font-family: 'Roboto Condensed', sans-serif;">{{ product.base_model }}</h2>
+            <p class="mb-1" style="color: #6c757d;">{{ product.brand }}</p>
+            <p class="h5 mb-1 fw-200"> {{ product.product_variants[0].price | currency:'USD' }}</p>
+            <p class="mb-1"><strong> {{ product.seller.name }} </strong></p>
           </div>
           <div class="mt-4 d-flex gap-3">
             <button class="btn btn-primary" (click)="addToCart()">

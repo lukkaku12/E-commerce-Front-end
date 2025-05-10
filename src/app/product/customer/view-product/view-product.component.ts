@@ -23,26 +23,30 @@ export class ViewProductComponent implements OnInit {
   ngOnInit(): void {
     // Mock directo sin llamar al servicio
     this.productId = Number(this.route.snapshot.paramMap.get('id'));
-    this.product = {
-      id: this.productId,
-      name: 'Camiseta negra',
-      description: 'Camiseta de algodón unisex, talla M',
-      price: 19.99,
-      stock: 12,
-      vendor: {
-        name: 'Tienda XYZ'
-      },
-      category: 'Ropa',
-      images: [
-        'https://placehold.co/1280x720',
-        'https://via.assets.so/game.jpg?w=1280&h=720'
-      ]
-    };
+    // this.product = {
+    //   id: this.productId,
+    //   category: 'Ropa',
+    //   gtin: '1234567890123',
+    //   mpn: 'CAM-001-BLK',
+    //   brand: 'MarcaX',
+    //   base_model: 'ModeloX',
+    //   seller_id: 42,
+    //   images: [
+    //     'https://placehold.co/1280x720',
+    //     'https://via.assets.so/game.jpg?w=1280&h=720'
+    //   ]
+    // };
 
-    this.mainImage = this.product.images?.[0] ?? 'https://placehold.co/600x400?text=Sin+imagen';
-    // this.productService.getProductById(this.productId).subscribe(data => {
-    //   this.product = data;
-    // });
+   
+    this.productService.getProductById(this.productId).subscribe(data => {
+      console.log(data)
+      this.product = data;
+      this.product.images = [
+            'https://placehold.co/1280x720',
+            'https://via.assets.so/game.jpg?w=1280&h=720'
+          ]
+      this.mainImage = this.product.images[0] ?? 'https://placehold.co/600x400?text=Sin+imagen';
+    });
   }
 
   goBack(): void {

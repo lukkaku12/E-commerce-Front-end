@@ -1,28 +1,59 @@
 <div class="container mt-4">
+  <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
+    ← Volver
+  </button>
     <h2>Crear Producto</h2>
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="name" class="form-label">Nombre</label>
-        <input id="name" class="form-control" formControlName="name" />
+        <label for="gtin" class="form-label">gtin</label>
+        <input id="gtin" class="form-control" formControlName="gtin" />
       </div>
   
       <div class="mb-3">
-        <label for="description" class="form-label">Descripción</label>
-        <textarea id="description" class="form-control" formControlName="description"></textarea>
+        <label for="mpn" class="form-label">mpn</label>
+        <textarea id="mpn" class="form-control" formControlName="mpn"></textarea>
       </div>
   
       <div class="mb-3">
-        <label for="price" class="form-label">Precio</label>
-        <input type="number" id="price" class="form-control" formControlName="price" />
+        <label for="marca" class="form-label">marca</label>
+        <input id="marca" class="form-control" formControlName="brand" />
       </div>
   
       <div class="mb-3">
-        <label for="image" class="form-label">URL de la Imagen</label>
-        <input id="image" class="form-control" formControlName="image" />
+        <label for="modelo_base" class="form-label">modelo base</label>
+        <input id="modelo_base" class="form-control" formControlName="base_model" />
       </div>
   
-      <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+      <div formArrayName="variantes">
+        <div *ngFor="let variant of variantControls; let i = index" [formGroupName]="i" class="border p-3 mb-2">
+          <h5>Variante {{ i + 1 }}</h5>
+          <div class="mb-3">
+            <label for="price-{{i}}" class="form-label">Precio</label>
+            <input id="price-{{i}}" type="number" class="form-control" formControlName="price">
+          </div>
+          <div class="mb-3">
+            <label for="stock-{{i}}" class="form-label">Stock</label>
+            <input id="stock-{{i}}" type="number" class="form-control" formControlName="stock">
+          </div>
+          <div class="mb-3">
+            <label for="sku-{{i}}" class="form-label">SKU</label>
+            <input id="sku-{{i}}" type="text" class="form-control" formControlName="sku">
+          </div>
+          <button type="button" class="btn btn-danger" (click)="removeVariant(i)">Eliminar Variante</button>
+        </div>
+        <button type="button" class="btn btn-secondary mb-2 same-width" (click)="addVariant()">Agregar Variante</button>
+      </div>
+
+      <button type="submit" class="btn btn-primary same-width" [disabled]="productForm.invalid">
         Crear Producto
       </button>
+      
     </form>
   </div>
+
+  <div *ngIf="errorMessage"
+     class="alert alert-danger position-fixed top-0 end-0 m-3 shadow z-3"
+     role="alert"
+     style="min-width: 300px; max-width: 400px;">
+  {{ errorMessage }}
+</div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DashboardService } from '../dashboard.service';
+import { ProductResponse } from './interfaces/ProductResponse.interface';
 
 @Component({
   selector: 'app-customer',
@@ -8,36 +10,44 @@ import { Router } from '@angular/router';
   styleUrl: './customer.component.css'
 })
 export class CustomerComponent implements OnInit {
-  products: { name: string; description: string, id: number }[] = [];
-  services: { name: string; description: string, id: number  }[] = [];
+  products: ProductResponse[] = [];
+  services: any[] = [];
   cartCount = 0;
   searchTerm: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    // Simulando endpoints
-    this.products = [
-      { name: 'Producto A', description: 'Descripción del producto A', id: 1  },
-      { name: 'Producto B', description: 'Descripción del producto B', id: 2  },
-      { name: 'Producto C', description: 'Descripción del producto C', id: 3 },
-    ];
+    this.dashboardService.getProducts().subscribe({
+      next: (data) => {
+        console.log(data)
+        this.products = data;
+      },
+      error: (err) => {
+        console.error('Error cargando productos', err);
+      }
+    });
 
-    this.services = [
-      { name: 'Servicio X', description: 'Detalle del servicio X', id: 5 },
-      { name: 'Servicio Y', description: 'Detalle del servicio Y', id: 7 },
-    ];
+    this.dashboardService.getServices().subscribe({
+      next: (data) => {
+        console.log(data)
+        this.services = data;
+      },
+      error: (err) => {
+        console.error('Error cargando servicios', err);
+      }
+    });
   }
 
   filteredProducts() {
     return this.products.filter(p =>
-      p.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      p.base_model.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
   filteredServices() {
     return this.services.filter(s =>
-      s.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      s.service_name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
