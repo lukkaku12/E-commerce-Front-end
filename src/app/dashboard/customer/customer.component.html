@@ -21,7 +21,7 @@
           <i class="bi bi-person"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item">Cerrar sesión</a></li>
+          <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
         </ul>
       </div>
       <button class="btn btn-outline-info">Carrito</button>
@@ -59,11 +59,11 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div *ngIf="services.length > 0; else sinServicios">
     <div class="col" *ngFor="let service of filteredServices()">
-      <div class="card h-100 border-primary">
+      <div class="card h-100 border-primary" (click)="goToService(service.service_id)">
         <div class="card-body">
-          <h5 class="card-title">{{ service.name }}</h5>
-          <p class="card-text">{{ service.description }}</p>
-          <button class="btn btn-primary w-100">Solicitar servicio</button>
+          <h5 class="card-title">{{ service.service_name }}</h5>
+          <p class="card-text">{{ service.service_description }}</p>
+          <button class="btn btn-primary w-100" >Solicitar servicio</button>
         </div>
       </div>
     </div>

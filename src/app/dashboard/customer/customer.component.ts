@@ -14,7 +14,6 @@ export class CustomerComponent implements OnInit {
   services: any[] = [];
   cartCount = 0;
   searchTerm: string = '';
-
   constructor(private router: Router, private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
@@ -62,5 +61,16 @@ export class CustomerComponent implements OnInit {
   }
   goToProduct(id: number) {
     this.router.navigate(['/product/customer/view-product', id]);
+  }
+  goToService(id: number) {
+    const service = this.services.find(s => s.service_id === id);
+  
+    if (service) {
+      this.router.navigate(['/service/customer/view-service', id], {
+        state: { service }
+      });
+    } else {
+      console.warn('Servicio no encontrado con ID:', id);
+    }
   }
 }

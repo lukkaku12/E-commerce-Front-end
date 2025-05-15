@@ -1,0 +1,56 @@
+<!-- Fondo gris claro para toda la vista -->
+<div class="bg-light py-5">
+  <div class="container" *ngIf="service as s">
+    <div class="card shadow-sm p-4">
+      <div class="row">
+        <!-- Columna izquierda: imagen y detalles del servicio -->
+        <div class="col-md-6 d-flex flex-column align-items-center text-center">
+          <img 
+            [src]="mainImage || 'https://placehold.co/400x300?text=Servicio'" 
+            alt="Imagen del servicio"
+            class="img-fluid rounded mb-3" 
+            style="max-height: 300px; object-fit: cover;" 
+          />
+          <h2 class="fw-bold" style="font-family: 'Roboto Condensed', sans-serif;">{{ s.service_name }}</h2>
+          <p class="text-muted">{{ s.service_description }}</p>
+          <p class="h5 fw-semibold text-primary">{{ s.service_price | currency:'USD' }}</p>
+
+          <div *ngIf="s.seller" class="mt-3">
+            <strong>Proveedor:</strong><br />
+            {{ s.seller.name }}<br />
+            <small class="text-muted">{{ s.seller.email }}</small>
+          </div>
+        </div>
+
+        <!-- Columna derecha: disponibilidades -->
+        <div class="col-md-6">
+          <h4 class="mb-3 text-end">Disponibilidades</h4>
+          <div *ngIf="s.serviceSchedule?.length > 0; else noSchedules" class="d-flex flex-column gap-3">
+            <div *ngFor="let sched of s.serviceSchedule" class="border p-3 rounded bg-white shadow-sm">
+              <div class="d-flex justify-content-between">
+                <div>
+                  📅 <strong>{{ sched.schedule_date }}</strong><br />
+                  🕒 {{ sched.start_time }} - {{ sched.ending_time }}
+                </div>
+                <div>
+                  <span 
+                    class="badge"
+                    [ngClass]="sched.isAvailable ? 'bg-success' : 'bg-secondary'"
+                  >
+                    {{ sched.isAvailable ? 'Disponible' : 'No disponible' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #noSchedules>
+            <p class="text-muted text-end">No hay horarios disponibles actualmente.</p>
+          </ng-template>
+          <div class="text-end mt-4">
+            <button class="btn btn-outline-primary" (click)="goBack()">← Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

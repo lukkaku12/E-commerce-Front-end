@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DashboardService } from '../dashboard.service';
+import { Service } from './interfaces/service.interface';
 
 @Component({
   selector: 'app-vendor',
@@ -7,22 +9,40 @@ import { Router } from '@angular/router';
   templateUrl: './vendor.component.html',
   styleUrl: './vendor.component.css'
 })
-export class VendorComponent {
-  products: { name: string; description: string }[] = [];
-  services: { name: string; description: string }[] = [];
+export class VendorComponent implements OnInit {
+  products: any[] = [];
+  services: Service[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    
-    this.products = [
-      { name: 'Producto 1', description: 'Descripción del producto 1' },
-      { name: 'Producto 2', description: 'Descripción del producto 2' },
-    ];
 
-    this.services = [
-      { name: 'Servicio A', description: 'Disponible los lunes y miércoles' },
-    ];
+    this.loadProducts();
+    this.loadServices()
+  }
+
+  loadProducts() {
+    return this.dashboardService.getProducts().subscribe({
+      next: (data) => {
+        console.log('📦 Productos:', data);
+        this.products = data;
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar productos:', err);
+      }
+    })
+  }
+
+  loadServices() {
+    return this.dashboardService.getServices().subscribe({
+      next: (data) => {
+        console.log('📦 Servicios:', data);
+        this.services = data;
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar servicios:', err);
+      }
+    })
   }
 
   logout() {
@@ -36,10 +56,14 @@ export class VendorComponent {
   }
 
   createService() {
-    this.router.navigate(['product/vendor/create-service']);
+    this.router.navigate(['service/vendor/create-service']);
   }
 
-  addAvailability() {
-    this.router.navigate(['/vendor/disponibilidad']);
+  goToProduct(id: number) {
+    this.router.navigate(['/product/vendor/view-product', id]);
+  }
+
+  goToService(id: number) {
+    this.router.navigate(['/service/vendor/view-service', id]);
   }
 }

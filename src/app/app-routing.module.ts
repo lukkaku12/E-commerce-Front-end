@@ -20,6 +20,11 @@ const routes: Routes = [
       import('./product/product.module').then((m) => m.ProductModule),
   },
   {
+    path: 'service',
+    loadChildren: () =>
+      import('./service/service.module').then((m) => m.ServiceModule),
+  },
+  {
     path: '',
     component: LandingComponent
   }

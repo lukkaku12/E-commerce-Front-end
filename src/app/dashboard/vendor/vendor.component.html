@@ -7,29 +7,54 @@
     <div class="mb-4">
       <button class="btn btn-success me-2" (click)="createProduct()">Crear producto</button>
       <button class="btn btn-primary me-2" (click)="createService()">Crear servicio</button>
-      <button class="btn btn-info" (click)="addAvailability()">Agregar disponibilidad</button>
     </div>
   
     <div class="mb-5">
       <h4>Mis productos</h4>
+    
       <div *ngIf="products.length > 0; else noProducts">
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let product of products">
-            {{ product.name }} - {{ product.description }}
+            <div class="d-flex justify-content-between align-items-center" (click)="goToProduct(product.product_id)">
+              <div>
+                <strong>{{ product.brand }}</strong> - {{ product.base_model }} <br>
+                <small class="text-muted">GTIN: {{ product.gtin }}</small>
+              </div>
+              <span *ngIf="product.product_variants?.length > 0">
+                ${{ product.product_variants[0].price }}
+              </span>
+            </div>
           </li>
         </ul>
       </div>
+    
       <ng-template #noProducts>
-        <p>No tienes productos registrados.</p>
+        <p class="text-muted">No tienes productos registrados.</p>
       </ng-template>
     </div>
   
     <div>
       <h4>Mis servicios</h4>
       <div *ngIf="services.length > 0; else noServices">
-        <ul class="list-group">
+        <ul class="list-group mb-4">
           <li class="list-group-item" *ngFor="let service of services">
-            {{ service.name }} - {{ service.description }}
+            <div class="d-flex justify-content-between align-items-start" (click)="goToService(service.service_id)">
+              <div>
+                <h6>{{ service.service_name }}</h6>
+                <p class="mb-1">{{ service.service_description }}</p>
+                <small class="text-muted">Precio: ${{ service.service_price }}</small>
+              </div>
+              <div>
+                <span *ngIf="(service.serviceSchedule ?? []).length > 0">
+                  <strong class="text-success">Próximas citas:</strong><br>
+                  <span *ngFor="let sched of service.serviceSchedule | slice:0:2">
+                    📅 {{ sched.schedule_date }}  
+                    🕒 {{ sched.start_time }} - {{ sched.ending_time }}  
+                    <span *ngIf="sched.isAvailable" class="badge text-bg-success">Disponible</span><br>
+                  </span>
+                </span>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -37,4 +62,5 @@
         <p>No tienes servicios registrados.</p>
       </ng-template>
     </div>
+
   </div>

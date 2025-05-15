@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
+    ← Volver
+  </button>
+  <h2>Crear nuevo servicio</h2>
+
+  <form (ngSubmit)="submitService()" #serviceForm="ngForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre del servicio</label>
+      <input id="name" name="service_name" class="form-control" [(ngModel)]="service.service_name" required />
+      
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descripción</label>
+      <textarea id="description" name="service_description" class="form-control" [(ngModel)]="service.service_description" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Precio</label>
+      <input id="price" type="number" name="service_price" class="form-control" [(ngModel)]="service.service_price" required />
+    </div>
+
+    <div class="mt-4">
+      <h5>Disponibilidades</h5>
+      <div *ngFor="let sched of serviceSchedules; let i = index" class="border p-3 mb-2 rounded">
+        <div class="mb-2">
+          <label class="form-label">Fecha</label>
+          <input type="date" class="form-control" [(ngModel)]="sched.schedule_date" name="date-{{ i }}" required />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Inicio</label>
+          <input type="time" class="form-control" [(ngModel)]="sched.start_time" name="start-{{ i }}" required />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Fin</label>
+          <input type="time" class="form-control" [(ngModel)]="sched.ending_time" name="end-{{ i }}" required />
+        </div>
+        <button type="button" class="btn btn-danger btn-sm mt-2" (click)="removeSchedule(i)">Eliminar</button>
+      </div>
+      <button type="button" class="btn btn-secondary" (click)="addSchedule()">Agregar disponibilidad</button>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4" (submit)="submitService()">Crear servicio</button>
+  </form>
+</div>

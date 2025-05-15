@@ -56,7 +56,10 @@ export class CreateProductComponent {
     if (this.productForm.valid) {
       const { variantes, ...productData } = this.productForm.value;
 
-      productData.seller_id = 9
+      const userData = localStorage.getItem('user') || '';
+      const userId = JSON.parse(userData)
+
+      productData.seller_id = userId
 
       this.productService.createProduct(productData).subscribe({
         next: (createdProduct) => {
