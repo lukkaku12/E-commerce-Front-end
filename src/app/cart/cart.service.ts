@@ -18,4 +18,16 @@ export class CartService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.baseUrl}/cart-item-id`, { headers }); // Replace with actual endpoint
   }
+
+  removeFromCart(cartItemId: number): Observable<any> {
+    const token = localStorage.getItem('accessToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/cart-item-id/${cartItemId}`, {headers});
+  }
+
+  updateItemQuantity(cartItemId: number, quantity: number) {
+    const token = localStorage.getItem('accessToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.patch(`${this.baseUrl}/cart-item-id/${cartItemId}`, {quantity}, {headers});
+  }
 }

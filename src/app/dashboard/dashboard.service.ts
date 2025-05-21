@@ -40,7 +40,6 @@ export class DashboardService {
     const data = {
     productId: product_id,
     quantity: 1,
-    userId: userId
     }
     console.log(data)
     return this.http.post<any[]>(`${this.baseUrl}/cart-item-id`, data, { headers });
