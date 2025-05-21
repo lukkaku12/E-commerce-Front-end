@@ -1,1 +1,38 @@
-<p>view-cart works!</p>
+<div class="container py-5">
+
+  <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
+    ← Volver
+  </button>
+    <h2 class="mb-4">🛒 Tu carrito</h2>
+  
+    <div *ngIf="cartItems.length > 0; else emptyCart" class="row gy-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let item of cartItems">
+        <div class="card shadow-sm h-100">
+          <div class="d-flex align-items-center gap-3 p-3">
+            <img 
+              [src]="item.productVariant?.image || 'https://placehold.co/100x100'" 
+              alt="Imagen del producto" 
+              class="img-thumbnail"
+              style="width: 100px; height: 100px; object-fit: cover;"
+            />
+            <div>
+              <h5 class="mb-1">{{ item.productVariant?.product_name || 'Producto' }}</h5>
+              <p class="fw-semibold mb-0">
+                {{ item | json }}
+              </p>
+              <p class="mb-1 text-muted">Cantidad: {{ item.quantity }}</p>
+              <p class="fw-semibold mb-0">
+                {{ item.productVariant?.price | currency: 'USD' }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #emptyCart>
+      <div class="alert alert-info">
+        Tu carrito está vacío.
+      </div>
+    </ng-template>
+  </div>

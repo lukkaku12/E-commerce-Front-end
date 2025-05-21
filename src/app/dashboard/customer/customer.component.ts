@@ -1,3 +1,4 @@
+import { NotificationService } from './../../services/notification.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../dashboard.service';
@@ -14,12 +15,11 @@ export class CustomerComponent implements OnInit {
   services: any[] = [];
   cartCount = 0;
   searchTerm: string = '';
-  constructor(private router: Router, private dashboardService: DashboardService) {}
+  constructor(private router: Router, private dashboardService: DashboardService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.dashboardService.getProducts().subscribe({
       next: (data) => {
-        console.log(data)
         this.products = data;
       },
       error: (err) => {
@@ -29,7 +29,6 @@ export class CustomerComponent implements OnInit {
 
     this.dashboardService.getServices().subscribe({
       next: (data) => {
-        console.log(data)
         this.services = data;
       },
       error: (err) => {
@@ -72,5 +71,16 @@ export class CustomerComponent implements OnInit {
     } else {
       console.warn('Servicio no encontrado con ID:', id);
     }
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart/your-cart'])
+  }
+
+  addToCart(product_id: number) {
+    this.dashboardService.addToCart(product_id).subscribe({
+      next: () => this.notificationService.notifySuccess('added to cart'),
+      error: () => this.notificationService.notifyError('not added to cart')
+    })
   }
 }

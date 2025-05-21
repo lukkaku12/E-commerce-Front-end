@@ -24,7 +24,7 @@
           <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
         </ul>
       </div>
-      <button class="btn btn-outline-info">Carrito</button>
+      <button class="btn btn-outline-info" (click)="goToCart()">Carrito</button>
     </div>
   </div>
 </nav>
@@ -44,7 +44,12 @@
             <p class="card-text">{{ product.mpn }}</p>
             <p class="mb-1"><strong>Marca:</strong> {{ product.brand }}</p>
             <p class="mb-3"><strong>Modelo base:</strong> {{ product.base_model }}</p>
-            <button class="btn btn-success w-100">Agregar al carrito</button>
+            <button 
+            class="btn btn-success w-100" 
+            (click)="addToCart(product.product_id); $event.stopPropagation()"
+          >
+            Agregar al carrito
+          </button>
           </div>
         </div>
       </div>

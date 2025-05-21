@@ -25,6 +25,11 @@ const routes: Routes = [
       import('./service/service.module').then((m) => m.ServiceModule),
   },
   {
+    path: 'cart',
+    loadChildren: () =>
+      import('./cart/cart.module').then((m) => m.CartModule),
+  },
+  {
     path: '',
     component: LandingComponent
   }
