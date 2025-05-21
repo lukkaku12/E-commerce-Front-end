@@ -38,10 +38,11 @@ export class CustomerComponent implements OnInit {
   }
 
   filteredProducts() {
-    return this.products.filter(p =>
-      p.base_model.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
+  return this.products.filter(p =>
+    p.base_model.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+    p.product_variants && p.product_variants.length > 0
+  );
+}
 
   filteredServices() {
     return this.services.filter(s =>

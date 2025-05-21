@@ -38,8 +38,10 @@ export class VendorComponent {
 
           if (res.user.role === 'buyer') {
             this.router.navigate(['/dashboard/customer']);
+            this.notificationService.notifySuccess('Autenticado correctamente');
           } else if (res.user.role === 'seller') {
             this.router.navigate(['/dashboard/vendor']);
+            this.notificationService.notifySuccess('Autenticado correctamente');
           }
         },
         error: (err) => {
