@@ -41,7 +41,7 @@ export class CustomerComponent implements OnInit {
         console.error('Error cargando servicios', err);
       }
     });
-
+    // hacer flujos de esta logica, para entender deeper.
     this.searchSubject.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -127,4 +127,11 @@ export class CustomerComponent implements OnInit {
     this.showSuggestions = false;
     this.queryTerm = '';
   }
+
+  onSearch(event: Event) {
+  event.preventDefault(); // evitar recarga del formulario
+  if (this.queryTerm.trim()) {
+    this.router.navigate(['/search'], { queryParams: { query: this.queryTerm.trim() } });
+  }
+}
 }

@@ -30,6 +30,10 @@ const routes: Routes = [
       import('./cart/cart.module').then((m) => m.CartModule),
   },
   {
+  path: 'search',
+  loadChildren: () => import('./search/search.module').then(m => m.SearchModule)
+  },
+  {
     path: '',
     component: LandingComponent
   }
