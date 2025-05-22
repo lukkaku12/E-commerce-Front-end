@@ -45,4 +45,12 @@ export class DashboardService {
     return this.http.post<any[]>(`${this.baseUrl}/cart-item-id`, data, { headers });
   }
 
+  lookForUserItem(queryTerm: string) {
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return this.http.get<any[]>(`${this.baseUrl}/products/reference/by-user?reference=${queryTerm}`, { headers });
+  }
+
 }

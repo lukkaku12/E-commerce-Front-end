@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../dashboard.service';
 import { ProductResponse } from './interfaces/ProductResponse.interface';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
 
 @Component({
   selector: 'app-customer',
@@ -15,6 +16,11 @@ export class CustomerComponent implements OnInit {
   services: any[] = [];
   cartCount = 0;
   searchTerm: string = '';
+  queryTerm: string = '';
+  searchSubject = new Subject<string>();
+  searchSuggestions: any[] = [];
+  showSuggestions = false;
+
   constructor(private router: Router, private dashboardService: DashboardService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
@@ -35,6 +41,33 @@ export class CustomerComponent implements OnInit {
         console.error('Error cargando servicios', err);
       }
     });
+
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(term => {
+        const products = this.products.filter(p =>
+          p.base_model.toLowerCase().includes(term.toLowerCase())
+        );
+        const services = this.services.filter(s =>
+          s.service_name.toLowerCase().includes(term.toLowerCase())
+        );
+        return of([...products, ...services]);
+      })
+    ).subscribe(results => {
+      this.searchSuggestions = results;
+      this.showSuggestions = true;
+    });
+  }
+
+  onInput(term: string) {
+    if (term.trim().length === 0) {
+      this.showSuggestions = false;
+      this.searchSuggestions = [];
+      return;
+    }
+
+    this.searchSubject.next(term);
   }
 
   filteredProducts() {
@@ -83,5 +116,15 @@ export class CustomerComponent implements OnInit {
       next: () => this.notificationService.notifySuccess('added to cart'),
       error: () => this.notificationService.notifyError('not added to cart')
     })
+  }
+
+  navigateToItem(item: any) {
+    if (item.product_id) {
+      this.goToProduct(item.product_id);
+    } else if (item.service_id) {
+      this.goToService(item.service_id);
+    }
+    this.showSuggestions = false;
+    this.queryTerm = '';
   }
 }

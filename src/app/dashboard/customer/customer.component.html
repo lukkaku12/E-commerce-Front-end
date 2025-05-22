@@ -5,11 +5,33 @@
       <input
         class="form-control me-2"
         type="search"
-        placeholder="Buscar productos..."
+        placeholder="Buscar productos o servicios..."
+        [(ngModel)]="queryTerm"
+        (input)="onInput(queryTerm)"
         aria-label="Search"
+        name="searchQuery" 
       />
       <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
+    <div
+      *ngIf="showSuggestions && searchSuggestions.length > 0"
+      class="position-absolute bg-white border rounded shadow-sm mt-1 p-2 w-50 zindex-dropdown search-suggestion-box"
+      style="left: 12%; top: 45px; max-height: 300px; overflow-y: auto"
+    >
+      <div
+        class="px-2 py-1 border-bottom"
+        *ngFor="let item of searchSuggestions"
+        style="cursor: pointer"
+        (click)="navigateToItem(item)"
+      >
+        <div *ngIf="item.product_id" class="suggestion-item">
+          <strong>🛍 Producto:</strong> {{ item.base_model }}
+        </div>
+        <div *ngIf="item.service_id" class="suggestion-item">
+          <strong>🛠 Servicio:</strong> {{ item.service_name }}
+        </div>
+      </div>
+    </div>
     <div class="ms-auto d-flex align-items-center gap-3">
       <div class="dropdown">
         <button
@@ -38,18 +60,23 @@
   <ng-container *ngIf="products.length > 0; else sinProductos">
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
       <div class="col" *ngFor="let product of filteredProducts()">
-        <div class="card h-100 border-success" (click)="goToProduct(product.product_id)">
+        <div
+          class="card h-100 border-success"
+          (click)="goToProduct(product.product_id)"
+        >
           <div class="card-body">
             <h5 class="card-title">{{ product.gtin }}</h5>
             <p class="card-text">{{ product.mpn }}</p>
             <p class="mb-1"><strong>Marca:</strong> {{ product.brand }}</p>
-            <p class="mb-3"><strong>Modelo base:</strong> {{ product.base_model }}</p>
-            <button 
-            class="btn btn-success w-100" 
-            (click)="addToCart(product.product_id); $event.stopPropagation()"
-          >
-            Agregar al carrito
-          </button>
+            <p class="mb-3">
+              <strong>Modelo base:</strong> {{ product.base_model }}
+            </p>
+            <button
+              class="btn btn-success w-100"
+              (click)="addToCart(product.product_id); $event.stopPropagation()"
+            >
+              Agregar al carrito
+            </button>
           </div>
         </div>
       </div>
@@ -63,18 +90,22 @@
   <h4>Servicios</h4>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div *ngIf="services.length > 0; else sinServicios">
-    <div class="col" *ngFor="let service of filteredServices()">
-      <div class="card h-100 border-primary" (click)="goToService(service.service_id)">
-        <div class="card-body">
-          <h5 class="card-title">{{ service.service_name }}</h5>
-          <p class="card-text">{{ service.service_description }}</p>
-          <button class="btn btn-primary w-100" >Solicitar servicio</button>
+      <div class="col" *ngFor="let service of filteredServices()">
+        <div
+          class="card h-100 border-primary"
+          (click)="goToService(service.service_id)"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ service.service_name }}</h5>
+            <p class="card-text">{{ service.service_description }}</p>
+            <button class="btn btn-primary w-100">Solicitar servicio</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<ng-template #sinServicios>
-  <p>No hay servicios disponibles.</p>
-</ng-template>
+  <ng-template #sinServicios>
+    <p>No hay servicios disponibles.</p>
+  </ng-template>
+</div>
