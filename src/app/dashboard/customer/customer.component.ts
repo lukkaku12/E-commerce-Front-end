@@ -111,6 +111,10 @@ export class CustomerComponent implements OnInit {
     this.router.navigate(['/cart/your-cart'])
   }
 
+  goToOrders() {
+    this.router.navigate(['/orders/your-orders'])
+  }
+
   addToCart(product_id: number) {
     this.dashboardService.addToCart(product_id).subscribe({
       next: () => this.notificationService.notifySuccess('added to cart'),
