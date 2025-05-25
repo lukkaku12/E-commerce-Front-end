@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" (click)="goToDashBoard()">Mercatify</a>
+    <form class="d-flex w-50" (submit)="onSearch($event)">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Buscar productos o servicios..."
+        [(ngModel)]="queryTerm"
+        (input)="onInput(queryTerm)"
+        aria-label="Search"
+        name="searchQuery" 
+      />
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <div
+      *ngIf="showSuggestions && searchSuggestions.length > 0"
+      class="position-absolute bg-white border rounded shadow-sm mt-1 p-2 w-50 zindex-dropdown search-suggestion-box"
+      style="left: 12%; top: 45px; max-height: 300px; overflow-y: auto"
+    >
+      <div
+        class="px-2 py-1 border-bottom"
+        *ngFor="let item of searchSuggestions"
+        style="cursor: pointer"
+        (click)="navigateToItem(item)"
+      >
+        <div *ngIf="item.product_id" class="suggestion-item">
+          <strong>🛍 Producto:</strong> {{ item.base_model }}
+        </div>
+        <div *ngIf="item.service_id" class="suggestion-item">
+          <strong>🛠 Servicio:</strong> {{ item.service_name }}
+        </div>
+      </div>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <div class="dropdown">
+        <button
+          class="btn btn-outline-secondary rounded-circle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-person"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
+        </ul>
+      </div>
+      <button class="btn btn-outline-info" (click)="goToCart()">Carrito</button>
+      <button class="btn btn-outline-primary" (click)="goToOrders()">Mis Órdenes</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h2>Mis Órdenes</h2>
+
+  <div *ngIf="orders?.length === 0" class="alert alert-info">
+    No tienes órdenes registradas.
+  </div>
+
+  <div *ngFor="let order of orders" class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Orden #{{ order.order_id }}</h5>
+      <p class="card-text">
+        <strong>Estado:</strong> {{ order.status }} <br />
+        <strong>Fecha de creación:</strong>
+        {{ order.created_at | date: 'short' }}
+      </p>
+
+      <div *ngIf="order.items?.length > 0">
+        <h6>Productos:</h6>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let item of order.items" class="list-group-item">
+            {{ item.product_name }} - Cantidad: {{ item.quantity }}
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="order.transactions?.length > 0" class="mt-2">
+        <h6>Transacciones:</h6>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let t of order.transactions" class="list-group-item">
+            {{ t.payment_method }} - ${{ t.amount }} ({{ t.status }})
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

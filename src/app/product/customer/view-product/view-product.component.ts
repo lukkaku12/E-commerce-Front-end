@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../product.service';
+import { DashboardService } from '../../../dashboard/dashboard.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-view-product',
@@ -17,7 +19,8 @@ export class ViewProductComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -53,10 +56,15 @@ export class ViewProductComponent implements OnInit {
     this.router.navigate(['/dashboard/customer']);
   }
 
+  goToCart() {
+    this.router.navigate(['/cart/your-cart'])
+  }
+
   addToCart(): void {
-    // Aquí podrías usar un servicio de carrito para agregar el producto
-    
-    alert('Producto agregado al carrito');
+    this.productService.addToCart(this.product.id).subscribe({
+      next: () => this.notificationService.notifySuccess('Producto agregado al carrito'),
+      error: () => this.notificationService.notifyError('No se pudo agregar al carrito'),
+    });
   }
   
   buyNow(): void {

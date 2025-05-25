@@ -41,4 +41,22 @@ export class ProductService {
       headers: this.getAuthHeaders()
     });
   }
+
+  addToCart(product_id: number): Observable<any> {
+
+    const user = localStorage.getItem('user') || '';
+    const userParsed = JSON.parse(user)
+    const userId = userParsed.user_id
+
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const data = {
+    productId: product_id,
+    quantity: 1,
+    }
+    console.log(data)
+    return this.http.post<any[]>(`${this.baseUrl}/cart-item-id`, data, { headers });
+  }
 }
