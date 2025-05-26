@@ -12,6 +12,7 @@ import { ServiceService } from '../../service.service';
 export class ViewServiceComponent implements OnInit {
   service: any;
   mainImage: string = '';
+  selectedSchedule: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,5 +43,19 @@ export class ViewServiceComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  selectSchedule(schedule: any): void {
+    this.selectedSchedule = schedule;
+  }
+
+  bookSelectedSchedule(): void {
+    if (!this.selectedSchedule) return;
+
+    console.log('Reservando:', this.selectedSchedule);
+    // Aquí podrías redirigir a una ruta de confirmación o llamar a un servicio
+    this.router.navigate(['/book-service/confirm-booking'], {
+      state: { schedule: this.selectedSchedule, service: this.service }
+    });
   }
 }

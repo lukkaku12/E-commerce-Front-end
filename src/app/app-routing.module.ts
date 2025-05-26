@@ -42,6 +42,10 @@ const routes: Routes = [
   loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
   },
   {
+  path: 'book-service',
+  loadChildren: () => import('./book-service/book-service.module').then(m => m.BookServiceModule)
+  },
+  {
     path: '',
     component: LandingComponent
   }

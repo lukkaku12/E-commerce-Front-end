@@ -26,7 +26,11 @@
         <div class="col-md-6">
           <h4 class="mb-3 text-end">Disponibilidades</h4>
           <div *ngIf="s.serviceSchedule?.length > 0; else noSchedules" class="d-flex flex-column gap-3">
-            <div *ngFor="let sched of s.serviceSchedule" class="border p-3 rounded bg-white shadow-sm">
+            <div *ngFor="let sched of s.serviceSchedule" 
+                 class="border p-3 rounded bg-white shadow-sm"
+                 [ngClass]="sched === selectedSchedule ? 'border-primary' : ''"
+                 style="cursor: pointer;"
+                 (click)="selectSchedule(sched)">
               <div class="d-flex justify-content-between">
                 <div>
                   📅 <strong>{{ sched.schedule_date }}</strong><br />
@@ -46,6 +50,11 @@
           <ng-template #noSchedules>
             <p class="text-muted text-end">No hay horarios disponibles actualmente.</p>
           </ng-template>
+          <div *ngIf="selectedSchedule" class="text-end mt-4">
+            <button class="btn btn-success" (click)="bookSelectedSchedule()">
+              Reservar horario seleccionado
+            </button>
+          </div>
           <div class="text-end mt-4">
             <button class="btn btn-outline-primary" (click)="goBack()">← Volver</button>
           </div>

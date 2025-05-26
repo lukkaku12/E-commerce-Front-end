@@ -52,36 +52,49 @@
   </div>
 </nav>
 
-<div class="container mt-4">
-  <h2>Mis Órdenes</h2>
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">
+    <i class="bi bi-receipt-cutoff text-primary me-2"></i>
+    Mis Órdenes
+  </h2>
 
-  <div *ngIf="orders?.length === 0" class="alert alert-info">
-    No tienes órdenes registradas.
+  <div *ngIf="orders?.length === 0" class="alert alert-info text-center">
+    <i class="bi bi-info-circle me-2"></i> No tienes órdenes registradas.
   </div>
 
-  <div *ngFor="let order of orders" class="card mb-3 shadow-sm">
+  <div *ngFor="let order of orders" class="card mb-4 shadow-sm border-0">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">
+        <i class="bi bi-box-seam me-2 text-secondary"></i>
+        Orden #{{ order.order_id }}
+      </h5>
+      <span class="badge bg-{{ order.status === 'completed' ? 'success' : order.status === 'pending' ? 'warning' : 'secondary' }}">
+        {{ order.status | titlecase }}
+      </span>
+    </div>
     <div class="card-body">
-      <h5 class="card-title">Orden #{{ order.order_id }}</h5>
-      <p class="card-text">
-        <strong>Estado:</strong> {{ order.status }} <br />
-        <strong>Fecha de creación:</strong>
-        {{ order.created_at | date: 'short' }}
+      <p class="mb-2">
+        <strong>Fecha:</strong> {{ order.created_at | date: 'fullDate' }}<br />
+        <strong>Hora:</strong> {{ order.created_at | date: 'shortTime' }}
       </p>
 
       <div *ngIf="order.items?.length > 0">
-        <h6>Productos:</h6>
-        <ul class="list-group list-group-flush">
+        <h6 class="text-primary mb-2"><i class="bi bi-bag-check me-1"></i> Productos:</h6>
+        <ul class="list-group list-group-flush mb-3">
           <li *ngFor="let item of order.items" class="list-group-item">
-            {{ item.product_name }} - Cantidad: {{ item.quantity }}
+            🛍 <strong>{{ item.product_name }}</strong> — Cantidad: {{ item.quantity }}
           </li>
         </ul>
       </div>
 
-      <div *ngIf="order.transactions?.length > 0" class="mt-2">
-        <h6>Transacciones:</h6>
+      <div *ngIf="order.transactions?.length > 0">
+        <h6 class="text-primary mb-2"><i class="bi bi-credit-card me-1"></i> Transacciones:</h6>
         <ul class="list-group list-group-flush">
           <li *ngFor="let t of order.transactions" class="list-group-item">
-            {{ t.payment_method }} - ${{ t.amount }} ({{ t.status }})
+            💳 {{ t.payment_method }} — <strong>${{ t.amount }}</strong>
+            <span class="badge bg-{{ t.status === 'success' ? 'success' : t.status === 'pending' ? 'warning' : 'danger' }} ms-2">
+              {{ t.status | titlecase }}
+            </span>
           </li>
         </ul>
       </div>

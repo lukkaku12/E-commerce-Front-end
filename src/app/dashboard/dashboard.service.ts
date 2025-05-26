@@ -29,10 +29,6 @@ export class DashboardService {
 
   addToCart(product_id: number): Observable<any> {
 
-    const user = localStorage.getItem('user') || '';
-    const userParsed = JSON.parse(user)
-    const userId = userParsed.user_id
-
     const token = localStorage.getItem('accessToken');
     const headers = {
       Authorization: `Bearer ${token}`,

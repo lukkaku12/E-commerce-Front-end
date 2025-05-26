@@ -1,0 +1,29 @@
+
+<div class="container py-5">
+  <h2 class="mb-4 text-center">
+    <i class="bi bi-calendar-check-fill text-success me-2"></i>
+    Confirmar Reserva
+  </h2>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="card-title">Servicio</h4>
+      <p><strong>{{ service?.service_name }}</strong></p>
+      <p class="text-muted">{{ service?.description }}</p>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="card-title">Horario Seleccionado</h4>
+      <p>📅 <strong>{{ schedule?.schedule_date }}</strong></p>
+      <p>🕒 {{ schedule?.start_time }} - {{ schedule?.ending_time }}</p>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-success btn-lg px-5" (click)="confirmBooking()">
+      <i class="bi bi-check-circle me-2"></i>Confirmar Reserva
+    </button>
+  </div>
+</div>

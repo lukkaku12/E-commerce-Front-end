@@ -12,7 +12,11 @@ import { Router } from '@angular/router';
 export class ViewCartComponent implements OnInit {
   cartItems: any[] = [];
 
-  constructor(private cartService: CartService, private router: Router, private notificationService: NotificationService) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.loadCartItems();
@@ -23,7 +27,7 @@ export class ViewCartComponent implements OnInit {
       next: (data) => {
         this.cartItems = data;
       },
-      error: (err) => console.error('Error fetching cart items:', err)
+      error: (err) => console.error('Error fetching cart items:', err),
     });
   }
 
@@ -32,7 +36,7 @@ export class ViewCartComponent implements OnInit {
   }
 
   goToProduct(productId: any) {
-    console.log(productId)
+    console.log(productId);
     this.router.navigate(['/product/customer/view-product', productId]);
   }
 
@@ -41,25 +45,32 @@ export class ViewCartComponent implements OnInit {
 
     this.cartService.removeFromCart(cartItemId).subscribe({
       next: () => {
-        
-        this.cartItems = this.cartItems.filter(item => item.cart_item_id !== cartItemId);
-        this.notificationService.notifySuccess('Producto eliminado del carrito');
+        this.cartItems = this.cartItems.filter(
+          (item) => item.cart_item_id !== cartItemId
+        );
+        this.notificationService.notifySuccess(
+          'Producto eliminado del carrito'
+        );
       },
       error: (err) => {
         console.error('Error al eliminar producto del carrito:', err);
-      }
+      },
     });
   }
 
   updateQuantity(cartItemId: number, event: Event): void {
-  const input = event.target as HTMLInputElement;
-  const quantity = parseInt(input.value, 10);
+    const input = event.target as HTMLInputElement;
+    const quantity = parseInt(input.value, 10);
 
-  if (isNaN(quantity) || quantity < 1) return;
+    if (isNaN(quantity) || quantity < 1) return;
 
-  this.cartService.updateItemQuantity(cartItemId, quantity).subscribe({
-    next: () => this.loadCartItems(),
-    error: (err) => console.error('Error actualizando cantidad', err),
-  });
-}
+    this.cartService.updateItemQuantity(cartItemId, quantity).subscribe({
+      next: () => this.loadCartItems(),
+      error: (err) => console.error('Error actualizando cantidad', err),
+    });
+  }
+
+  goToCheckout() {
+    this.router.navigate(['/checkout']);
+  }
 }

@@ -22,6 +22,7 @@ export class ViewOrdersComponent implements OnInit {
   ngOnInit(): void {
     this.ordersService.getUserOrders().subscribe({
       next: (data) => {
+        console.log(data)
         this.orders = data;
       },
       error: (err) => {
