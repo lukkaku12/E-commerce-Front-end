@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class OrdersService {
+export class CheckoutService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
@@ -16,8 +16,8 @@ export class OrdersService {
     });
   }
 
-  getUserOrders(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/orders`, {
+  createOrder(): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/orders`, {}, {
       headers: this.getAuthHeaders(),
     });
   }
