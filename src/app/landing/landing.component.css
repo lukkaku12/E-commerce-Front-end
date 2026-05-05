@@ -125,22 +125,58 @@ h1 {
 .feature-card h3 { font-size: 1.1rem; margin-bottom: 0.65rem; }
 .feature-card p { color: #c8d1f1; margin: 0; line-height: 1.6; }
 
-.stack-section {
+.capabilities-section {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem clamp(1.2rem, 3vw, 3rem) 4.5rem;
 }
-.stack-section h2 { margin-bottom: 1.2rem; font-size: 1.6rem; letter-spacing: -0.01em; }
-.stack-cloud { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.stack-cloud span {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 999px;
-  padding: 0.5rem 0.95rem;
-  color: #e9eeff;
+.capabilities-section h2 { margin-bottom: 2rem; font-size: 1.6rem; letter-spacing: -0.01em; text-align: center; }
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
+.capability-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 1.1rem;
+  backdrop-filter: blur(8px);
+  padding: 1.4rem;
+  transition: transform 250ms ease, border-color 250ms ease;
+}
+.capability-card:hover { transform: translateY(-4px); border-color: rgba(125, 173, 255, 0.8); }
+.capability-card h4 { font-size: 1rem; margin-bottom: 0.65rem; color: #e8ecff; }
+.capability-card p { color: #c8d1f1; margin: 0; line-height: 1.6; font-size: 0.95rem; }
+
+.benefits-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem clamp(1.2rem, 3vw, 3rem) 4.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.benefits-section h2 { margin-bottom: 2rem; font-size: 1.6rem; letter-spacing: -0.01em; text-align: center; }
+.benefits-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+.benefit-item {
+  padding: 1.2rem 0;
+}
+.benefit-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(125, 173, 255, 0.6);
+  margin-bottom: 0.5rem;
+}
+.benefit-item h4 { font-size: 1.05rem; margin-bottom: 0.5rem; color: #e8ecff; }
+.benefit-item p { color: #bec9ef; line-height: 1.6; margin: 0; }
 
 @media (max-width: 900px) {
   .value-grid { grid-template-columns: 1fr; margin-top: 0.5rem; }
+  .capabilities-grid { grid-template-columns: 1fr; }
+  .benefits-list { grid-template-columns: 1fr; }
   .top-nav { margin-bottom: 2.5rem; }
 }
