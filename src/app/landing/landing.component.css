@@ -12,7 +12,6 @@
 .hero-section {
   position: relative;
   padding: 2rem clamp(1.2rem, 3vw, 3rem) 5rem;
-  overflow: hidden;
 }
 
 .ambient {
