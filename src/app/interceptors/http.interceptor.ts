@@ -3,30 +3,21 @@ import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { NotificationService } from '../services/notification.service';
+import { finalize } from 'rxjs/operators';
+import { LoadingStateService } from '../services/loading-state.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
-  private firstRequestDone = false;
-
-  constructor(private notificationService: NotificationService) {}
+  constructor(private loadingStateService: LoadingStateService) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!this.firstRequestDone) {
-      this.firstRequestDone = true;
-      this.notificationService.notifyInfo(
-        'Conectando con el servidor, por favor espera...'
-      );
-    }
+    this.loadingStateService.show();
 
     return next.handle(req).pipe(
-      tap({
-        // puedes agregar más lógica aquí si quieres ocultar loaders después
-      })
+      finalize(() => this.loadingStateService.hide())
     );
   }
 }
