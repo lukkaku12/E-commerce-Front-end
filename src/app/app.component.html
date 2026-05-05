@@ -1,2 +1,13 @@
-
 <router-outlet></router-outlet>
+
+<div class="loading-overlay" *ngIf="loading$ | async">
+  <div class="loading-card">
+    <div class="spinner-ring"></div>
+    <h2>Preparing your experience</h2>
+    <p class="status-text">{{ rotatingStatus$ | async }}</p>
+    <div class="loading-track">
+      <span></span>
+    </div>
+    <small>This delay is expected when the API wakes up from cold start.</small>
+  </div>
+</div>

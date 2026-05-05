@@ -1,66 +1,52 @@
-<section class="hero">
-    <div class="container text-center text-white py-5">
-      <h1 class="display-4 fw-bold">Mercatify</h1>
-      <p class="lead">API modular para construir tu propio eCommerce con facilidad.</p>
-      <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
-        <a routerLink="user/signup-client" (click)="onClientClick()" class="btn btn-lg btn-primary">Vincularse como Cliente</a>
-        <a routerLink="user/signup-vendor" (click)="onVendorClick()" class="btn btn-lg btn-outline-light">Vincularse como Vendedor</a>
+<div class="landing-shell">
+  <section class="hero-section">
+    <div class="ambient ambient-left"></div>
+    <div class="ambient ambient-right"></div>
+
+    <nav class="top-nav">
+      <div class="brand">Mercatify</div>
+      <div class="nav-pill">Commerce Platform</div>
+    </nav>
+
+    <div class="hero-content">
+      <p class="eyebrow">Build. Launch. Scale.</p>
+      <h1>Diseña una experiencia eCommerce que se sienta premium desde el primer clic.</h1>
+      <p class="hero-copy">
+        Arquitectura moderna, performance estable y una interfaz cuidada para vender productos y servicios con una identidad visual contundente.
+      </p>
+
+      <div class="cta-row">
+        <a routerLink="user/signup-client" (click)="onClientClick()" class="btn-primary-modern">Quiero comprar</a>
+        <a routerLink="user/signup-vendor" (click)="onVendorClick()" class="btn-ghost-modern">Quiero vender</a>
       </div>
     </div>
   </section>
-  
-  <!-- HTML -->
-<section class="features container py-5 text-center full-height-section d-flex flex-column justify-content-center align-items-center">
-  <h2 class="mb-4">¿Qué ofrece Mercatify?</h2>
-  <div class="row g-4 w-100">
-    <div class="col-md-4">
-      <h5>🧱 Arquitectura Modular</h5>
-      <p>Desarrollado con NestJS, ideal para escalar sin dolores de cabeza.</p>
+
+  <section class="value-grid">
+    <article class="feature-card">
+      <h3>Arquitectura Escalable</h3>
+      <p>Diseñada para crecer con tu operación: catálogo, pagos, órdenes y servicios en un flujo limpio y mantenible.</p>
+    </article>
+    <article class="feature-card">
+      <h3>Checkout Confiable</h3>
+      <p>Integración de pago robusta y pensada para conversión, con estados claros y experiencia de usuario consistente.</p>
+    </article>
+    <article class="feature-card">
+      <h3>Operación Fluida</h3>
+      <p>Paneles para vendedor y cliente con jerarquía visual fuerte, microinteracciones y navegación intuitiva.</p>
+    </article>
+  </section>
+
+  <section class="stack-section">
+    <h2>Stack tecnológico</h2>
+    <div class="stack-cloud">
+      <span>NestJS</span>
+      <span>Angular</span>
+      <span>TypeScript</span>
+      <span>Redis</span>
+      <span>Mercado Pago</span>
+      <span>Docker</span>
+      <span>GitHub Actions</span>
     </div>
-    <div class="col-md-4">
-      <h5>💳 Pagos con Mercado Pago</h5>
-      <p>Listo para que tus clientes paguen de forma segura y rápida.</p>
-    </div>
-    <div class="col-md-4">
-      <h5>⚙️ Despliegue Automático</h5>
-      <p>CI/CD con GitHub Actions y Docker para actualizaciones fluidas.</p>
-    </div>
-  </div>
-</section>
-  
-  <section class="tech bg-light py-5 text-center">
-  <div class="container">
-    <h3 class="mb-5 display-6 fw-bold">⚙️ Stack Tecnológico</h3>
-    <div class="d-flex flex-wrap justify-content-center gap-4">
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fab fa-node-js text-success me-2"></i> Node.js
-      </div>
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fas fa-cubes text-danger me-2"></i> NestJS
-      </div>
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fas fa-code text-primary me-2"></i> TypeScript
-      </div>
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fas fa-database text-warning me-2"></i> Redis
-      </div>
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fas fa-credit-card text-info me-2"></i> Mercado Pago
-      </div>
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fas fa-vial text-secondary me-2"></i> Jest
-      </div>
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fab fa-docker text-primary me-2"></i> Docker
-      </div>
-      <div class="stack-item shadow-sm rounded-pill px-4 py-2 bg-white d-flex align-items-center">
-        <i class="fab fa-github text-dark me-2"></i> GitHub Actions
-      </div>
-    </div>
-  </div>
-</section>
-  
-  <footer class="text-center py-4 bg-white border-top mt-5">
-    <small>© 2025 Mercatify. Todos los derechos reservados.</small>
-  </footer>
-  
+  </section>
+</div>
